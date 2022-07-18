@@ -1,0 +1,27 @@
+<div class="border-end bg-blue sidebar" id="sidebar-wrapper" *ngIf="usuario.user!=''">
+    <div class="list-group list-group-flush sidebar">
+        <a class="list-group-item list-group-item-action list-group-item-action p-3 nav-link sidebar"
+        [routerLink]="['/inicio']"><span class='material-icons icon'>home</span> Inicio</a>
+    </div>
+    <div class="list-group list-group-flush sidebar">
+        <a class="list-group-item list-group-item-action list-group-item-action p-3 nav-link sidebar"
+            [routerLink]="['/alumnos']"><span class="material-icons">school</span> Alumnos</a>
+    </div>
+    <div class="list-group list-group-flush sidebar">
+        <a class="list-group-item list-group-item-action list-group-item-action p-3 nav-link sidebar"
+            [routerLink]="['/cursos']"><span class="material-icons">book</span> Cursos</a>
+    </div>
+    <div class="list-group list-group-flush sidebar">
+        <a class="list-group-item list-group-item-action list-group-item-action p-3 nav-link sidebar"
+            [routerLink]="['/inscripciones']"><span class="material-icons">list</span> Inscripciones</a>
+    </div>
+    <div class="list-group list-group-flush sidebar">
+        <a class="list-group-item list-group-item-action list-group-item-action p-3 nav-link sidebar"
+            [routerLink]="['/usuarios']" *ngIf="usuario.user=='ADMIN'"><span class="material-icons">person</span> Usuarios</a>
+    </div>
+    <div class="list-group list-group-flush sidebar">
+        <a class="list-group-item list-group-item-action list-group-item-action p-3 nav-link sidebar"
+            [routerLink]="['']" (click)="cerrarSesion()"> <mat-icon>logout</mat-icon> Cerrar Sesión</a>
+    </div>
+</div>
+

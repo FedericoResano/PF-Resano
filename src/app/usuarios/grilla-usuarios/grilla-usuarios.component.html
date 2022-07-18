@@ -1,0 +1,64 @@
+<body class="container">
+
+    <div class="row">
+        <div class="col-md-9">
+        </div>
+        <div class="col-md-3" *ngIf="usuario.user">
+            <a routerLink="alta" text="agregar">
+                <button mat-fab color="accent" aria-label="Example icon button with a plus one icon" class="btnAgregar"
+                    title="Alta">
+                    <mat-icon class="btnAgregar2">+</mat-icon>
+                </button>
+            </a>
+        </div>
+    </div>
+
+
+    <table mat-table [dataSource]="usuarios" class="mat-elevation-z8 tabla">
+
+
+
+
+        <ng-container matColumnDef="Nickname">
+            <th mat-header-cell *matHeaderCellDef class="cabecera"> Nickname </th>
+            <td mat-cell *matCellDef="let element"> {{(element.Nickname| uppercase)}}
+            </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Nombre">
+            <th mat-header-cell *matHeaderCellDef class="cabecera"> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Apellido">
+            <th mat-header-cell *matHeaderCellDef class="cabecera"> Apellido </th>
+            <td mat-cell *matCellDef="let element"> {{element.Apellido}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Accion">
+            <th mat-header-cell *matHeaderCellDef class="cabecera"></th>
+            <td mat-cell *matCellDef="let element">
+
+                <a routerLink="editar/{{element.id}}" *ngIf="usuario.user=='ADMIN'">
+                    <button mat-fab color="primary" class="btnEditar botonGrilla"
+                        aria-label="Example icon button with a edit icon" title="Modificar">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </a>
+                <a routerLink="baja/{{element.id}}" *ngIf="usuario.user=='ADMIN'">
+                    <button class="botonGrilla" mat-fab color="warn" aria-label="Example icon button with a delete icon"
+                        title="Baja">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </a>
+
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+
+</body>

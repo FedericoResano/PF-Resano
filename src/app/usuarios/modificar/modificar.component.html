@@ -1,0 +1,60 @@
+<!--- Verifico que el usuario sea el ADMIN-->
+
+<body *ngIf="usuarios.user=='ADMIN'">
+    <div class="col-md-12">
+    </div>
+
+    <form [formGroup]="modificarFormGroup" class="example-form pagina" (ngSubmit)="submit()">
+        <!---- Cargo el formulario con sus inputs y validaciones-->
+        <div>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput type="text" formControlName="Nombre">
+                <mat-hint align="end"></mat-hint>
+            </mat-form-field>
+            <div *ngIf="this.modificarFormGroup.get('Nombre')?.errors?.['required'] && !modificarFormGroup.get('Nombre')?.pristine"
+                class="alert alert-danger">Debe ingresar el nombre del usuario</div>
+            <div *ngIf="this.modificarFormGroup.get('Nombre')?.errors?.['maxlength'] && !modificarFormGroup.get('Nombre')?.pristine"
+                class="alert alert-danger">El nombre no puede exceder los 50 caracteres</div>
+        </div>
+
+
+        <div>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Apellido</mat-label>
+                <input matInput type="text" formControlName="Apellido">
+                <mat-hint align="end"></mat-hint>
+            </mat-form-field>
+            <div *ngIf="this.modificarFormGroup.get('Apellido')?.errors?.['Apellido'] && !modificarFormGroup.get('Apellido')?.pristine"
+                class="alert alert-danger">Debe ingresar el apellido del usuario</div>
+            <div *ngIf="this.modificarFormGroup.get('Apellido')?.errors?.['maxlength'] && !modificarFormGroup.get('Apellido')?.pristine"
+                class="alert alert-danger">El apellido puede exceder los 50 caracteres</div>
+        </div>
+        <div>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Nickname</mat-label>
+                <input matInput type="text" formControlName="Nickname">
+                <mat-hint align="end"></mat-hint>
+            </mat-form-field>
+        </div>
+        <div *ngIf="this.modificarFormGroup.get('Nickname')?.errors?.['required'] && !modificarFormGroup.get('Nickname')?.pristine"
+            class="alert alert-danger">Debe ingresar el nickname del usuario</div>
+            <div *ngIf="this.modificarFormGroup.get('Nickname')?.errors?.['maxlength'] && !modificarFormGroup.get('Nickname')?.pristine"
+                class="alert alert-danger">El nickname puede exceder los 50 caracteres</div>
+        <div>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Clave</mat-label>
+                <input matInput type="text" formControlName="Clave">
+                <mat-hint align="end"></mat-hint>
+            </mat-form-field>
+        </div>
+        <div *ngIf="this.modificarFormGroup.get('Clave')?.errors?.['required'] && !modificarFormGroup.get('Clave')?.pristine"
+            class="alert alert-danger">Debe ingresar una clave</div>
+            <div *ngIf="this.modificarFormGroup.get('Clave')?.errors?.['maxlength'] && !modificarFormGroup.get('Clave')?.pristine"
+                class="alert alert-danger">La clave puede exceder los 50 caracteres</div>
+        <div>
+            <button type="submit" mat-raised-button color="primary" class="boton">Modificar</button>
+        </div>
+
+    </form>
+</body>
