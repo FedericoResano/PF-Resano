@@ -15,12 +15,16 @@ export class SidebarComponent implements OnInit {
   constructor(private store:Store<any>) { }
 
   ngOnInit(): void {
+
+    //Cargo la info del usuario.
     this.store.select(selectLoginUser).subscribe(
       (val)=>this.usuario=val
     )
   }
 
   cerrarSesion(){
+
+    //Vacio los datos del usuario logueado y redirijo a login.
     let user:User= {
       user: '',
       clave: ''

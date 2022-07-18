@@ -24,13 +24,14 @@ export class AgregarCursosComponent implements OnInit {
   } ; 
   curso: Cursos;
   sub: Subscription;
+  usuario:User;
   
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
     private cursosServicio: CursosService,
     private formBuilder: FormBuilder,
     private store: Store<any>) {};
 
-    usuario:User;
+    
     
     //Armo el form
     agregarFormGroup: FormGroup = this.formBuilder.group({
@@ -40,7 +41,11 @@ export class AgregarCursosComponent implements OnInit {
     })
 
   ngOnInit(): void {
+
+    //Cargo la info del titulo del componente
     this.store.dispatch(TitleChange({title: this.pageTitle}));
+
+    //Recupero la info del usuario
     this.store.select(selectLoginUser).subscribe(
       (val)=>this.usuario=val
     )

@@ -23,14 +23,13 @@ export class AgregarAlumnosComponent implements OnInit {
   };
   alumno: Alumnos;
   sub: Subscription;
+  usuario: User;
+
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
     private alumnosServicio: AlumnosService,
     private formBuilder: FormBuilder,
     private store: Store<any>) { };
-
-  //Recupero la info del usuario 
-  usuario: User;
 
 
   agregarFormGroup: FormGroup = this.formBuilder.group({
@@ -43,7 +42,11 @@ export class AgregarAlumnosComponent implements OnInit {
   })
 
   ngOnInit(): void {
+
+    //Cargo el titulo del componente
     this.store.dispatch(TitleChange({ title: this.pageTitle }));
+
+    //Recupero la info del usuario 
     this.store.select(selectLoginUser).subscribe(
       (val) => this.usuario = val
     )

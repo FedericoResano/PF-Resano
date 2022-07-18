@@ -18,21 +18,19 @@ import { selectUsuario } from 'src/app/Store/Usuarios/usuarios-feature.selectors
   styleUrls: ['./baja.component.scss']
 })
 export class BajaComponent implements OnInit {
-  pageTitle: Title ={
+  pageTitle: Title = {
     title: 'Eliminar Usuario'
-  } ;
+  };
   usuario: Usuarios;
   sub: Subscription;
   errorMessage = '';
-  id:number;
+  id: number;
+  usuarios: User;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
     private UsuariosServicio: UsuariosService,
     private formBuilder: FormBuilder,
     private store: Store<any>) { };
-
-  //Recupero la info del usuario 
-  usuarios:User;
 
   //Armo las propiedades del formulario.
   eliminarFormGroup: FormGroup = this.formBuilder.group({
@@ -48,33 +46,36 @@ export class BajaComponent implements OnInit {
       this.id = params["id"];
     })
     this.onGet();
-    this.sub=this.store.select(selectUsuario).subscribe(
-      (val)=>{
-        this.usuario=val;
+    this.sub = this.store.select(selectUsuario).subscribe(
+      (val) => {
+        this.usuario = val;
         this.eliminarFormGroup.patchValue(val);
-          this.eliminarFormGroup.disable();
-          
+        this.eliminarFormGroup.disable();
+
       }
     )
-    this.store.dispatch(TitleChange({title: this.pageTitle}));
 
+    //Cargo la info del titulo del componente
+    this.store.dispatch(TitleChange({ title: this.pageTitle }));
+
+    //Recupero la info del usuario
     this.store.select(selectLoginUser).subscribe(
-      (val)=>this.usuarios=val
+      (val) => this.usuarios = val
     )
   }
   //Cargo los datos que tengo en el formulario en la propiedad de curso y se la paso en un update al servicio. Redirijo a la pagina del listado
   submit() {
     this.store.dispatch(deleteUsuarios({ id: this.id }));
     this.router.navigate(["/usuarios"]);
-    
+
   }
   //Desuscribo
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
 
-  onGet(){
-    this.store.dispatch(getUsuarios({id:this.id}))
+  onGet() {
+    this.store.dispatch(getUsuarios({ id: this.id }))
   }
 
 }

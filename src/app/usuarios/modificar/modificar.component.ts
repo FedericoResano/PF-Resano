@@ -55,7 +55,11 @@ export class ModificarComponent implements OnInit {
           
       }
     )
+
+    //Cargo la info del titulo del componente
     this.store.dispatch(TitleChange({title: this.pageTitle}));
+
+    //Recupero la info del usuario
     this.store.select(selectLoginUser).subscribe(
       (val)=>this.usuarios=val
     )

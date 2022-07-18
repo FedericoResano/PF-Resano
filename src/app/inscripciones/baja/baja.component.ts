@@ -36,6 +36,7 @@ export class BajaComponent implements OnInit, OnDestroy {
   id: number;
   sub: Subscription;
   errorMessage = '';
+  usuario:User;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
     private inscripcionesServicio: InscripcionesService,
@@ -43,10 +44,6 @@ export class BajaComponent implements OnInit, OnDestroy {
     private cursosServicio: CursosService,
     private formBuilder: UntypedFormBuilder,
     private store:Store<any>) { };
-
-  //Recupero la info del usuario 
-  usuario:User;
-
 
   bajaFormGroup: UntypedFormGroup = this.formBuilder.group({
     alumno: ['', Validators.required],
@@ -68,7 +65,11 @@ export class BajaComponent implements OnInit, OnDestroy {
          this.bajaFormGroup.disable();
       }
     )
+
+    //Cargo la info del titulo del componente
     this.store.dispatch(TitleChange({title: this.pageTitle}));
+
+    //Recupero la info del usuario
     this.store.select(selectLoginUser).subscribe(
       (val)=>this.usuario=val
     )

@@ -41,7 +41,11 @@ export class AltaComponent implements OnInit {
     clave: ['', [Validators.required, Validators.maxLength(50)]],
   });
   ngOnInit(): void {
+
+    //Cargo la info del titulo del componente
     this.store.dispatch(TitleChange({title: this.pageTitle}));
+
+    //Recupero la info del usuario
     this.store.select(selectLoginUser).subscribe(
       (val)=>this.usuarios=val
     )

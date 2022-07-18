@@ -20,9 +20,12 @@ export class InicioComponent implements OnInit {
 
   
   ngOnInit(): void {
+
+    //Recupero la info del usuario logueado
     this.store.select(selectLoginUser).subscribe(
       (val)=>this.usuario=val
     )
+    //Cargo el titulo del componente
     this.store.dispatch(TitleChange({title: this.pageTitle}));
   }
 

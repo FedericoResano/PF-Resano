@@ -27,12 +27,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     
+    //Cargo el titulo del componente
     this.store.dispatch(TitleChange({title: this.pageTitle}));
     
   }
 
   
-  //Cargo el dato del usuario en el localStorage y redirijo a la pagina de Inicio
+  //Cargo el dato del usuario en el Store y redirijo a la pagina de Inicio
   submit(){
     let user:User= {
       user: this.loginFormGroup.get("Usuario")?.value,

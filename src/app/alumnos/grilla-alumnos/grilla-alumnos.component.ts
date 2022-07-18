@@ -25,22 +25,24 @@ export class GrillaAlumnosComponent implements OnInit, OnDestroy {
   errorMessage = '';
   sub: Subscription;
   loading:boolean;
+  usuario:User;
 
   displayedColumns: string[] = ['alumnoNombre', 'alumnoCurso', 'alumnoMail', 'accion'];
   constructor(private store: Store<any>) {};
 
-  //Recupero la info del usuario 
-  usuario:User;
-
   ngOnInit(): void {
 
+    //Traigo la info de los alumnos
     this.sub=this.store.select(selectAlumnos).subscribe(
       (val)=>{
         this.alumnos=val;
         
       }
     )
+
+    //Cargo el titulo del componente
     this.store.dispatch(TitleChange({title: this.pageTitle}));
+    //Recupero la info del usuario 
     this.store.select(selectLoginUser).subscribe(
       (val)=>this.usuario=val
     )

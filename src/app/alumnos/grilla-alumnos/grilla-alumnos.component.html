@@ -3,6 +3,7 @@
     <div class="row">
             <div class="col-md-9">
             </div>
+            <!--Verifico que el usuario sea ADMIN-->
             <div class="col-md-3" *ngIf="usuario.user=='ADMIN'">
                     <a routerLink="/agregaralumno" text="agregar">
                             <button mat-fab color="accent" aria-label="Example icon button with a plus one icon"
@@ -46,12 +47,14 @@
                                             <mat-icon>visibility</mat-icon>
                                     </button>
                             </a>
+                            <!---Verifico que el usuario sea ADMIN-->
                             <a routerLink="/editaralumno/{{element.id}}" *ngIf="usuario.user=='ADMIN'">
-                                    <button mat-fab color="primary" class="btnEditar botonGrilla"
+                                    <button mat-fab color="primary" class="btnEditar botonGrilla" 
                                             aria-label="Example icon button with a edit icon" title="Modificar">
                                             <mat-icon>edit</mat-icon>
                                     </button>
                             </a>
+                            <!---Verifico que el usuario sea ADMIN-->
                             <a routerLink="/eliminaralumno/{{element.id}}" *ngIf="usuario.user=='ADMIN'">
                                     <button class="botonGrilla" mat-fab color="warn"
                                             aria-label="Example icon button with a delete icon" title="Eliminar">

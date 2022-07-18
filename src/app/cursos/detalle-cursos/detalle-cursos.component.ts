@@ -34,6 +34,7 @@ export class DetalleCursosComponent implements OnInit, OnDestroy {
   sub: Subscription;
   inscripciones: Inscripciones[];
   inscripcion: Inscripciones;
+  usuario: User;
 
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
@@ -41,8 +42,6 @@ export class DetalleCursosComponent implements OnInit, OnDestroy {
     private inscripcionesServicio: InscripcionesService,
     private formBuilder: FormBuilder,
     private store: Store<any>) { };
-
-  usuario: User;
 
   displayedColumns: string[] = ['inscripciones', 'accion'];
 
@@ -59,13 +58,9 @@ export class DetalleCursosComponent implements OnInit, OnDestroy {
     //Guardo la suscripcion, lleno la variable de cursos y completo el formulario, y lleno la variable de inscripciones, mandando el id del curso.
     this.sub = this.activatedRoute.params.subscribe((params) => {
       this.id = params["id"];
-      this.store.select(selectLoginUser).subscribe(
-        (val) => this.usuario = val
-      )
     })
 
     this.onGet();
-
     this.sub = this.store.select(selectCurso).subscribe(
       (val) => {
         this.curso = val;
@@ -74,6 +69,13 @@ export class DetalleCursosComponent implements OnInit, OnDestroy {
         this.inscripciones = this.performFilter(this.id);
       }
     )
+
+    //Recupero la info del usuario
+    this.store.select(selectLoginUser).subscribe(
+      (val) => this.usuario = val
+    )
+
+    //Cargo la info del titulo del componente
     this.store.dispatch(TitleChange({ title: this.pageTitle }));
   }
 

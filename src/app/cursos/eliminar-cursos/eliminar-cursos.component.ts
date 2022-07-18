@@ -29,15 +29,12 @@ export class EliminarCursosComponent implements OnInit, OnDestroy {
   id: number;
   sub: Subscription;
   errorMessage = '';
+  usuario: User;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
     private cursosServicio: CursosService,
     private formBuilder: FormBuilder,
     private store: Store<any>) { };
-
-  //Recupero la info del usuario 
-  usuario: User;
-
 
   eliminarFormGroup: FormGroup = this.formBuilder.group({
     curso: ['', [Validators.required, Validators.maxLength(50)]],
@@ -50,9 +47,6 @@ export class EliminarCursosComponent implements OnInit, OnDestroy {
     //Guardo la suscripcion
     this.activatedRoute.params.subscribe((params) => {
       this.id = params["id"];
-      this.store.select(selectLoginUser).subscribe(
-        (val) => this.usuario = val
-      )
     })
 
     this.onGet();
@@ -63,6 +57,13 @@ export class EliminarCursosComponent implements OnInit, OnDestroy {
         this.eliminarFormGroup.disable();
       }
     )
+
+    //Recupero la info del usuario
+    this.store.select(selectLoginUser).subscribe(
+      (val) => this.usuario = val
+    )
+
+    //Cargo la info del titulo del componente
     this.store.dispatch(TitleChange({ title: this.pageTitle }));
   }
   //Envio el id del curso a eliminar y regenero la propiedad cursos[] para tenerla actuaizada. Redirijo a la lista de cursos

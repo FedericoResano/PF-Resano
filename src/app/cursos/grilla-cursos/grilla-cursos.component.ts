@@ -23,12 +23,12 @@ export class GrillaCursosComponent implements OnInit, OnDestroy {
   pageTitle: Title = {
     title: 'Listado de Cursos'
   };
+  usuario:User;
+
   displayedColumns: string[] = ['curso', 'duracion', 'precio', 'accion'];
   constructor(private serviceCursos: CursosService, private store: Store<any>) { };
 
-  //Recupero la info del usuario 
-  usuario:User;
-
+ 
   ngOnInit(): void {
 
     //GUardo la suscripcion y lleno la variable para la grilla
@@ -39,8 +39,10 @@ export class GrillaCursosComponent implements OnInit, OnDestroy {
       }
     )
 
+    //Cargo la info del titulo del componente
     this.store.dispatch(TitleChange({ title: this.pageTitle }));
 
+    //Recupero la info del usuario
     this.store.select(selectLoginUser).subscribe(
       (val) => this.usuario = val
     )

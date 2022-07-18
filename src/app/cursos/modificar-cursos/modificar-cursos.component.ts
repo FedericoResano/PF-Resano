@@ -26,14 +26,14 @@ export class ModificarCursosComponent implements OnInit, OnDestroy {
   sub: Subscription;
   errorMessage = '';
   id: number;
+  usuario: User;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
     private cursosServicio: CursosService,
     private formBuilder: FormBuilder,
     private store: Store<any>) { };
 
-  //Recupero la info del usuario 
-  usuario: User;
+  
 
   //Armo las propiedades del formulario.
   modificarFormGroup: FormGroup = this.formBuilder.group({
@@ -55,7 +55,11 @@ export class ModificarCursosComponent implements OnInit, OnDestroy {
 
       }
     )
+
+    //Cargo la info del titulo del componente
     this.store.dispatch(TitleChange({ title: this.pageTitle }));
+
+    //Recupero la info del usuario
     this.store.select(selectLoginUser).subscribe(
       (val) => this.usuario = val
     )

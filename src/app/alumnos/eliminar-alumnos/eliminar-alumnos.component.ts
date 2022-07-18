@@ -39,7 +39,7 @@ export class EliminarAlumnosComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private store: Store<any>) { };
 
-  //Recupero la info del usuario 
+  
   usuario:User;
 
 
@@ -61,6 +61,7 @@ export class EliminarAlumnosComponent implements OnInit, OnDestroy {
       this.id = params["id"];
     })
 
+    //Hago el load de Alumno y lo cargo en el formulario
     this.onGet();
     this.sub = this.store.select(selectAlumno).subscribe(
       (val) => {
@@ -69,8 +70,11 @@ export class EliminarAlumnosComponent implements OnInit, OnDestroy {
         this.eliminarFormGroup.disable();
       }
     )
+
+    //Cargo el titulo del componente
     this.store.dispatch(TitleChange({ title: this.pageTitle }));
 
+    //Recupero la info del usuario 
     this.store.select(selectLoginUser).subscribe(
       (val) => this.usuario = val
     )

@@ -17,10 +17,14 @@ export class ToolbarComponent implements OnInit {
   constructor(private store:Store<any>) { }
 
   ngOnInit(): void {
+
+    //Recupero la info del usuario
     this.store.select(selectLoginUser).subscribe(
       (val)=>
       this.user= val
     )
+
+    //Recupero la info del titulo del componente abierto.
     this.store.select(selectTitle).subscribe(
       (val)=>
       this.title= val

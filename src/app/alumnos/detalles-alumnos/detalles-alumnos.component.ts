@@ -61,8 +61,10 @@ export class DetallesAlumnosComponent implements OnInit, OnDestroy {
       this.id = params["id"];
     });
 
+    //Hago el load de alumno
     this.onGet();
 
+    //Cargo la info del alumno en el formulario
     this.sub = this.store.select(selectAlumno).subscribe(
       (val) => {
         this.alumno = val;
@@ -71,7 +73,11 @@ export class DetallesAlumnosComponent implements OnInit, OnDestroy {
         this.inscripciones = this.performFilter(this.id);
       }
     )
+
+    //Cargo el titulo del componente
     this.store.dispatch(TitleChange({ title: this.pageTitle }));
+    
+    //Recupero la info del usuario 
     this.store.select(selectLoginUser).subscribe(
       (val) => this.usuario = val
     )
@@ -103,9 +109,8 @@ export class DetallesAlumnosComponent implements OnInit, OnDestroy {
 
   //Posta para eliminar la inscripción del alumno a un curso
   desinscribirAlumno(id: number) {
-    debugger;
+    
     this.store.dispatch(deleteInscripciones({ id: id }));
-
     this.router.navigate(["inscripciones"])
 
   }

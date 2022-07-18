@@ -19,22 +19,21 @@ import { User } from 'src/app/shared/class/user';
   styleUrls: ['./modificar-alumnos.component.scss']
 })
 export class ModificarAlumnosComponent implements OnInit, OnDestroy {
-  
-  pageTitle: Title ={
+
+  pageTitle: Title = {
     title: 'Editar Alumno'
-  } ;
+  };
   alumno: Alumnos;
   sub: Subscription;
-  errorMessage= '';
-  id:number;
+  errorMessage = '';
+  id: number;
+  usuario: User;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
     private alumnosServicio: AlumnosService,
     private formBuilder: FormBuilder,
     private store: Store<any>) { };
 
-  //Recupero la info del usuario 
-  usuario:User;
 
   //Armo las propiedades del formulario.
   modificarFormGroup: FormGroup = this.formBuilder.group({
@@ -52,32 +51,36 @@ export class ModificarAlumnosComponent implements OnInit, OnDestroy {
       this.id = params["id"];
     })
     this.onGet();
-    this.sub=this.store.select(selectAlumno).subscribe(
-      (val)=>{
-        this.alumno=val;
+    this.sub = this.store.select(selectAlumno).subscribe(
+      (val) => {
+        this.alumno = val;
         this.modificarFormGroup.patchValue(val);
-          
+
       }
     )
-    this.store.dispatch(TitleChange({title: this.pageTitle}));
+
+    //Cargo el titulo del componente
+    this.store.dispatch(TitleChange({ title: this.pageTitle }));
+
+    //Recupero la info del usuario 
     this.store.select(selectLoginUser).subscribe(
-      (val)=>this.usuario=val
+      (val) => this.usuario = val
     )
   }
   //Cargo los datos que tengo en el formulario en la propiedad de alumno y se la paso en un update al servicio. Redirijo a la pagina del listado
   submit() {
-    let alumno:Alumnos={
+    let alumno: Alumnos = {
 
-    id: this.id,
-    apellido : this.modificarFormGroup.get("apellido")?.value,
-    nombre : this.modificarFormGroup.get("nombre")?.value,
-    mail : this.modificarFormGroup.get("mail")?.value,
-    edad : this.modificarFormGroup.get("edad")?.value,
-    fechaNacimiento : this.modificarFormGroup.get("fechaNacimiento")?.value,
-    usuario: this.modificarFormGroup.get("usuario").value
+      id: this.id,
+      apellido: this.modificarFormGroup.get("apellido")?.value,
+      nombre: this.modificarFormGroup.get("nombre")?.value,
+      mail: this.modificarFormGroup.get("mail")?.value,
+      edad: this.modificarFormGroup.get("edad")?.value,
+      fechaNacimiento: this.modificarFormGroup.get("fechaNacimiento")?.value,
+      usuario: this.modificarFormGroup.get("usuario").value
     }
 
-    this.store.dispatch(editAlumnos({alumno:alumno}));
+    this.store.dispatch(editAlumnos({ alumno: alumno }));
     this.router.navigate(["alumnos"]);
   }
 
@@ -85,8 +88,8 @@ export class ModificarAlumnosComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-  
-  onGet(){
-    this.store.dispatch(getAlumnos({id:this.id}))
+
+  onGet() {
+    this.store.dispatch(getAlumnos({ id: this.id }))
   }
 }
